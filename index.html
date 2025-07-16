@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="PhysX: Physical-Grounded 3D Asset Generation.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PhysX: Physical-Grounded 3D Asset Generation</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <!-- <link rel="stylesheet" href="./static/css/fontawesome.all.min.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>
+
+    pre {
+      background-color: #f4f4f4;
+      padding: 1px;
+      border-radius: 8px;
+      max-height: 300px;
+      overflow: auto;
+      font-size: 14px;
+      border: 1px solid #ddd;
+    }
+
+    code {
+      font-family: monospace;
+      white-space: pre;
+    }
+
+    .section {
+      margin-top: 1px;
+      margin-bottom: 1px;
+    }
+
+    h2 {
+    margin-top: 1px;
+    margin-bottom: 1px;
+    color: #333;
+    text-align: center; 
+  }
+
+  .iframe-container {
+      display: flex;
+      width: 100%;
+      height: 300px; /* 可以按需改为 100vh 或 auto */
+    }
+
+    .iframe-container iframe {
+      flex: 1;
+      border: none;
+      height: 100%;
+    }
+  </style>
+
+
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">PhysX: Physical-Grounded 3D Asset Generation</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=L9tbNTsAAAAJ&hl=zh-CN">Ziang Cao</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=HsV0WbwAAAAJ&hl=en">Zhaoxi Chen</a><sup>1</sup>,</span>
+            
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=lSDISOcAAAAJ&hl=zh-CN&oi=ao">Liang Pan</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=lc45xlcAAAAJ&hl=zh-CN">Ziwei Liu</a><sup>1</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>S-Lab, Nanyang Technological University,</span>
+            <span class="author-block"><sup>2</sup>Shanghai AI Laboratory</span>
+          </div>
+
+
+          <!-- <div class="is-size-5 publication-authors">
+           <span class="author-block">
+              <a href="https://iclr.cc/">ICLR 2024</a></span>
+            <span class="author-block">
+          </div> -->
+
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+
+              
+
+
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+             
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/ziangcao0312/PhysX"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://youtu.be/M5V_c0Duuy4"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+
+              <!-- Data Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/Caoza/PhysX"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fa fa-database"></i>
+                  </span>
+                  <span>Dataset</span>
+                </a>
+              </span>
+     
+                  
+                 
+            </div>
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+<section class="section">
+  <!-- Paper video. -->
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-four-fifths">
+      <!-- <h2 class="title is-3">Demo Video</h2> -->
+      <div class="publication-video">
+        <iframe src="https://www.youtube.com/embed/M5V_c0Duuy4"
+                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+  <!--/ Paper video. -->
+</div>
+</section>
+
+
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-4">Abstract</h2>
+        <div class="content has-text-justified">
+          
+          
+          <p>
+            3D modeling is moving from virtual to physical. Existing 3D generation primarily emphasizes geometries and textures while neglecting physical-grounded modeling. Consequently, despite the rapid development of 3D generative models, the synthesized 3D assets often overlook rich and important physical properties, hampering their real-world application in physical domains like simulation and embodied AI. As an initial attempt to address this challenge, we propose <b>PhysX</b>, an end-to-end paradigm for physical-grounded 3D asset generation. <b>1)</b> To bridge the critical gap in physics-annotated 3D datasets, we present <b>PhysXNet</b> - the first physics-grounded 3D dataset systematically annotated across five foundational dimensions:
+            <span style="font-weight: bold; color: rgb(30.0000003 ,  70.99999935, 173.9999997);">absolute scale</span>, <span style="font-weight: bold; color: rgb(220.0000005 ,  22.00000005,  74.0000004);">material</span>, <span style="font-weight: bold; color: rgb(255       , 158,  42.99999975);">affordance</span>, <span style="font-weight: bold; color: rgb(79.99999995, 178.9999989 ,  34.9999995);">kinematics</span>, and <span style="font-weight: bold; color: rgb(119.00000085,  33.99999915,   5.99999955);">function description</span>. In particular, we devise a scalable human-in-the-loop annotation pipeline based on vision-language models, which enables efficient creation of physics-first assets from raw 3D assets. <b>2)</b> Furthermore, we propose <b>PhysXGen</b>, a feed-forward framework for physics-grounded image-to-3D asset generation, injecting physical knowledge into the pre-trained 3D structural space.
+            Specifically, PhysXGen employs a dual-branch architecture to explicitly model the latent correlations between 3D structures and physical properties, thereby producing 3D assets with plausible physical predictions while preserving the native geometry quality. Extensive experiments validate the superior performance and promising generalization capability of our framework. All the code, data, and models will be released to facilitate future research in generative physical AI.        </p>
+        </div>
+        <br>
+        <img class="summary-img" src="./static/videos/teaser.png" style="width:100%;">
+        <br>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+    <br>
+    <br>
+  </section>
+
+
+  <div class="container is-max-desktop">
+    <!-- method. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-4">PhysXNet & PhysXNet-XL: Physical-Grounded 3D data</h2>
+        <h2 class="title is-5">I. Statistics and Distribution</h2>
+        <div class="content has-text-justified">
+
+        <img class="summary-img" src="./static/videos/dist1.png" style="width:100%;">
+
+
+        
+        
+        </div>
+      </div>
+    </div>
+    <!--/ method. -->
+    <br>
+
+
+    <div class="container is-max-desktop">
+    <!-- method. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+
+    <h2 class="title is-5">II. Definition of Properties and Our Annotation Pipeline.</h2>
+        <div class="content has-text-justified">
+
+        <img class="summary-img" src="./static/videos/annotationpipeline.png" style="width:100%;">
+        <br>
+        <p>
+          <b>Top: Definition of properties in PhysXNet .</b> By defining and annotating properties across
+three categories, common physical quantities can be systematically calculated to enable physical
+simulations. </p>
+
+<p>
+<b>Bottom: Overview of our human-in-the-loop annotation pipeline.</b> We utilize GPT-4o
+to gather foundational raw data, which is subsequently verified through human oversight. The
+kinematic parameters are then rigorously determined and finalized through human review
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <section class="section">
+      
+    
+            <h2 class="title is-5">III. Supported Formats</h2>
+           
+              
+                <h2 class="title is-6">1. JSON <a class="icon-link"
+                  href="./static/videos/example/45746.json">
+                 <i class="fas fa-file"></i>
+               </a></h2>
+                <pre><code id="jsonDisplay" class="json"></code></pre>
+                <br>
+                <br>
+                <h2 class="title is-6">2. URDF<a class="icon-link"
+                  href="./static/videos/example/45746_urdf.zip">
+                  <i class="fa-solid fa-file-zipper"></i>
+               </a></h2>
+
+               <div class="iframe-container">
+                <iframe src="https://physx-3d.github.io/urdf-loaders/javascript/example/bundle/"></iframe>
+              </div>
+              <br>
+
+                <pre><code id="urdfDisplay" class="xml"></code></pre>
+              
+                <br>
+                <br>
+                <h2 class="title is-6">3. XML<a class="icon-link"
+                  href="./static/videos/example/45746_xml.zip">
+                  <i class="fa-solid fa-file-zipper"></i>
+               </a></h2>
+                <pre><code id="xmlDisplay" class="xml"></code></pre>
+              
+            
+              <!-- Highlight.js 脚本引入 -->
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+              <script>hljs.highlightAll();</script>
+            
+              <script>
+                // 示例 JSON 数据
+                const jsonData = {
+    "object_name": "Drawer Cabinet",
+    "category": "Furniture",
+    "dimension": "50*50*60",
+    "parts": [
+        {
+            "label": 0,
+            "name": "vertical_side_panel",
+            "material": "Wood",
+            "density": "0.65 g/cm^3",
+            "priority_rank": 8,
+            "Basic_description": "A vertical side panel of a drawer cabinet made of wood.",
+            "Functional_description": "Provides structural support and enclosure for the cabinet.",
+            "Movement_description": "Fixed in place, no movement.",
+            "Young's Modulus (GPa)": 10.0,
+            "Poisson's Ratio": 0.3
+        },
+        {
+            "label": 1,
+            "name": "vertical_side_panel",
+            "material": "Wood",
+            "density": "0.65 g/cm^3",
+            "priority_rank": 8,
+            "Basic_description": "A vertical side panel of a drawer cabinet made of wood.",
+            "Functional_description": "Provides structural support and enclosure for the cabinet.",
+            "Movement_description": "Fixed in place, no movement.",
+            "Young's Modulus (GPa)": 10.0,
+            "Poisson's Ratio": 0.3
+        },
+        {
+            "label": 2,
+            "name": "back_panel",
+            "material": "Wood",
+            "density": "0.65 g/cm^3",
+            "priority_rank": 10,
+            "Basic_description": "Back panel of the drawer cabinet made of wood.",
+            "Functional_description": "Provides rear enclosure and structural integrity.",
+            "Movement_description": "Fixed in place, no movement.",
+            "Young's Modulus (GPa)": 10.0,
+            "Poisson's Ratio": 0.3
+        },
+        {
+            "label": 3,
+            "name": "bottom_panel",
+            "material": "Wood",
+            "density": "0.65 g/cm^3",
+            "priority_rank": 9,
+            "Basic_description": "Bottom panel of the drawer cabinet made of wood.",
+            "Functional_description": "Supports the structure and contents of the cabinet.",
+            "Movement_description": "Fixed in place, no movement.",
+            "Young's Modulus (GPa)": 10.0,
+            "Poisson's Ratio": 0.3
+        },
+        {
+            "label": 4,
+            "name": "top_panel",
+            "material": "Wood",
+            "density": "0.65 g/cm^3",
+            "priority_rank": 7,
+            "Basic_description": "Top panel of the drawer cabinet made of wood.",
+            "Functional_description": "Covers the top and may support items placed on it.",
+            "Movement_description": "Fixed in place, no movement.",
+            "Young's Modulus (GPa)": 10.0,
+            "Poisson's Ratio": 0.3
+        },
+        {
+            "label": 5,
+            "name": "frame_horizontal_bar",
+            "material": "Wood",
+            "density": "0.65 g/cm^3",
+            "priority_rank": 9,
+            "Basic_description": "Horizontal bar of the cabinet frame made of wood.",
+            "Functional_description": "Provides structural support between side panels.",
+            "Movement_description": "Fixed in place, no movement.",
+            "Young's Modulus (GPa)": 10.0,
+            "Poisson's Ratio": 0.3
+        },
+        {
+            "label": 6,
+            "name": "frame_horizontal_bar",
+            "material": "Wood",
+            "density": "0.65 g/cm^3",
+            "priority_rank": 9,
+            "Basic_description": "Horizontal bar of the cabinet frame made of wood.",
+            "Functional_description": "Provides structural support between side panels.",
+            "Movement_description": "Fixed in place, no movement.",
+            "Young's Modulus (GPa)": 10.0,
+            "Poisson's Ratio": 0.3
+        },
+        {
+            "label": 7,
+            "name": "drawer_box",
+            "material": "Wood",
+            "density": "0.65 g/cm^3",
+            "priority_rank": 3,
+            "Basic_description": "Lower drawer box made of wood.",
+            "Functional_description": "Holds items and slides in/out of the cabinet.",
+            "Movement_description": "Slides in and out via drawer sliders.",
+            "Young's Modulus (GPa)": 10.0,
+            "Poisson's Ratio": 0.3
+        },
+        {
+            "label": 8,
+            "name": "handle",
+            "material": "Metal",
+            "density": "7.8 g/cm^3",
+            "priority_rank": 1,
+            "Basic_description": "Metal handle attached to the lower drawer.",
+            "Functional_description": "Used to pull the drawer open or push it closed.",
+            "Movement_description": "Fixed to the drawer front.",
+            "Young's Modulus (GPa)": 200.0,
+            "Poisson's Ratio": 0.3
+        },
+        {
+            "label": 9,
+            "name": "drawer_slider",
+            "material": "Metal",
+            "density": "7.8 g/cm^3",
+            "priority_rank": 6,
+            "Basic_description": "Metal slider for the lower drawer.",
+            "Functional_description": "Allows the drawer to slide in and out.",
+            "Movement_description": "Supports relative sliding motion.",
+            "Young's Modulus (GPa)": 200.0,
+            "Poisson's Ratio": 0.3
+        },
+        {
+            "label": 10,
+            "name": "drawer_slider",
+            "material": "Metal",
+            "density": "7.8 g/cm^3",
+            "priority_rank": 6,
+            "Basic_description": "Metal slider for the upper drawer.",
+            "Functional_description": "Allows the drawer to slide in and out.",
+            "Movement_description": "Supports relative sliding motion.",
+            "Young's Modulus (GPa)": 200.0,
+            "Poisson's Ratio": 0.3
+        },
+        {
+            "label": 11,
+            "name": "drawer_box",
+            "material": "Wood",
+            "density": "0.65 g/cm^3",
+            "priority_rank": 4,
+            "Basic_description": "Upper drawer box made of wood.",
+            "Functional_description": "Holds items and slides in/out of the cabinet.",
+            "Movement_description": "Slides in and out via drawer sliders.",
+            "Young's Modulus (GPa)": 10.0,
+            "Poisson's Ratio": 0.3
+        },
+        {
+            "label": 12,
+            "name": "handle",
+            "material": "Metal",
+            "density": "7.8 g/cm^3",
+            "priority_rank": 2,
+            "Basic_description": "Metal handle attached to the upper drawer.",
+            "Functional_description": "Used to pull the drawer open or push it closed.",
+            "Movement_description": "Fixed to the drawer front.",
+            "Young's Modulus (GPa)": 200.0,
+            "Poisson's Ratio": 0.3
+        },
+        {
+            "label": 13,
+            "name": "drawer_slider",
+            "material": "Metal",
+            "density": "7.8 g/cm^3",
+            "priority_rank": 6,
+            "Basic_description": "Second metal slider for the lower drawer.",
+            "Functional_description": "Allows the drawer to slide in and out.",
+            "Movement_description": "Supports relative sliding motion.",
+            "Young's Modulus (GPa)": 200.0,
+            "Poisson's Ratio": 0.3
+        },
+        {
+            "label": 14,
+            "name": "drawer_slider",
+            "material": "Metal",
+            "density": "7.8 g/cm^3",
+            "priority_rank": 6,
+            "Basic_description": "Second metal slider for the upper drawer.",
+            "Functional_description": "Allows the drawer to slide in and out.",
+            "Movement_description": "Supports relative sliding motion.",
+            "Young's Modulus (GPa)": 200.0,
+            "Poisson's Ratio": 0.3
+        }
+    ],
+    "group_info": {
+        "0": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            9,
+            10,
+            13,
+            14
+        ],
+        "1": [
+            [
+                7,
+                8
+            ],
+            "0",
+            [
+                0,
+                0,
+                1,
+                -0.009601250290870667,
+                -0.17686372995376587,
+                0.576269268989563,
+                0.0,
+                1.286729
+            ],
+            "B"
+        ],
+        "2": [
+            [
+                11,
+                12
+            ],
+            "0",
+            [
+                0,
+                0,
+                1,
+                -0.009601250290870667,
+                0.37331128120422363,
+                0.5762754678726196,
+                0.0,
+                1.286729
+            ],
+            "B"
+        ]
+    }
+};
+            
+                // 示例 URDF 内容
+                const urdfData = `<?xml version='1.0' encoding='UTF-8'?>
+<robot name="scene">
+  <link name="l_world">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+      <mass value="1.0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+  <link name="l_0">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+      <mass value="0.23215119999999996"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="objs/0.obj"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+    </visual>
+  </link>
+  <link name="l_1">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+      <mass value="0.31586399999999"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="objs/1.obj"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+    </visual>
+  </link>
+  <link name="l_2">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+      <mass value="0.23215119999999996"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="objs/2.obj"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+    </visual>
+  </link>
+  <link name="l_3">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+      <mass value="0.311079199999998"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="objs/3.obj"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+    </visual>
+  </link>
+  <link name="l_4">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+      <mass value="0.321924799999996"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="objs/4.obj"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+    </visual>
+  </link>
+  <link name="l_5">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+      <mass value="0.0589463999999999"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="objs/5.obj"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+    </visual>
+  </link>
+  <link name="l_6">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+      <mass value="0.06611415999999997"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="objs/6.obj"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+    </visual>
+  </link>
+  <link name="l_9">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+      <mass value="0.020574719999996"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="objs/9.obj"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+    </visual>
+  </link>
+  <link name="l_10">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+      <mass value="0.020574719999996"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="objs/10.obj"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+    </visual>
+  </link>
+  <link name="l_13">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+      <mass value="0.020574719999996"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="objs/13.obj"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+    </visual>
+  </link>
+  <link name="l_14">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+      <mass value="0.020574719999996"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="objs/14.obj"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+    </visual>
+  </link>
+  <joint name="fixed_0_1" type="fixed">
+    <parent link="l_0"/>
+    <child link="l_1"/>
+    <axis xyz="1. 0. 0."/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+  </joint>
+  <joint name="fixed_0_2" type="fixed">
+    <parent link="l_0"/>
+    <child link="l_2"/>
+    <axis xyz="1. 0. 0."/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+  </joint>
+  <joint name="fixed_0_3" type="fixed">
+    <parent link="l_0"/>
+    <child link="l_3"/>
+    <axis xyz="1. 0. 0."/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+  </joint>
+  <joint name="fixed_0_4" type="fixed">
+    <parent link="l_0"/>
+    <child link="l_4"/>
+    <axis xyz="1. 0. 0."/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+  </joint>
+  <joint name="fixed_0_5" type="fixed">
+    <parent link="l_0"/>
+    <child link="l_5"/>
+    <axis xyz="1. 0. 0."/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+  </joint>
+  <joint name="fixed_0_6" type="fixed">
+    <parent link="l_0"/>
+    <child link="l_6"/>
+    <axis xyz="1. 0. 0."/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+  </joint>
+  <joint name="fixed_0_9" type="fixed">
+    <parent link="l_0"/>
+    <child link="l_9"/>
+    <axis xyz="1. 0. 0."/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+  </joint>
+  <joint name="fixed_0_10" type="fixed">
+    <parent link="l_0"/>
+    <child link="l_10"/>
+    <axis xyz="1. 0. 0."/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+  </joint>
+  <joint name="fixed_0_13" type="fixed">
+    <parent link="l_0"/>
+    <child link="l_13"/>
+    <axis xyz="1. 0. 0."/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+  </joint>
+  <joint name="fixed_0_14" type="fixed">
+    <parent link="l_0"/>
+    <child link="l_14"/>
+    <axis xyz="1. 0. 0."/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+  </joint>
+  <link name="l_7">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+      <mass value="0.4511051999999999"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="objs/7.obj"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+    </visual>
+  </link>
+  <link name="l_8">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+      <mass value="0.143023999999999"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="objs/8.obj"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+    </visual>
+  </link>
+  <joint name="fixed_7_8" type="fixed">
+    <parent link="l_7"/>
+    <child link="l_8"/>
+    <axis xyz="1. 0. 0."/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+  </joint>
+  <joint name="joint_revolute_0_7" type="prismatic">
+    <limit effort="2000.0" velocity="2.0" lower="0.0" upper="1.286729"/>
+    <parent link="l_0"/>
+    <child link="l_7"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="0.0 0.0 -0.0" rpy="0.0 -0.0 0.0"/>
+  </joint>
+  <link name="l_11">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+      <mass value="0.322283199999999"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="objs/11.obj"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+    </visual>
+  </link>
+  <link name="l_12">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+      <mass value="0.143023999999999"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="objs/12.obj"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+    </visual>
+  </link>
+  <joint name="fixed_11_12" type="fixed">
+    <parent link="l_11"/>
+    <child link="l_12"/>
+    <axis xyz="1. 0. 0."/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+  </joint>
+  <joint name="joint_revolute_0_11" type="prismatic">
+    <limit effort="2000.0" velocity="2.0" lower="0.0" upper="1.286729"/>
+    <parent link="l_0"/>
+    <child link="l_11"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="0.0 0.0 -0.0" rpy="0.0 -0.0 0.0"/>
+  </joint>
+</robot>
+
+
+            `;
+            
+                // 示例 XML 内容
+                const xmlData = `
+                <mujoco model="test">
+    <compiler angle="radian" autolimits="true" />
+    <option timestep="0.002" gravity="0 0 -9.81" wind="0 0 0" integrator="implicitfast" density="1.225" 
+    viscosity="1.8e-5"/>
+    <visual>
+        <global realtime="1"/>
+        <quality shadowsize="16384" numslices="28" offsamples="4" />
+        <headlight diffuse="2 2 2" specular="0.5 0.5 0.5" active="1" />
+        <rgba fog="0 1 0 1" haze="1 0 0 1"/>
+    </visual>
+    <asset>
+
+        <mesh name="part0" file="0/model.obj" scale="0.3 0.3 0.3" />
+        <texture type="2d" name="part0_tex" file="0/material_0.png" />
+        <material name="part0_img" texture="part0_tex" />
+
+        <mesh name="part1" file="1/model.obj" scale="0.3 0.3 0.3" />
+        <texture type="2d" name="part1_tex" file="1/material_0.png" />
+        <material name="part1_img" texture="part1_tex" />
+
+        <mesh name="part2" file="2/model.obj" scale="0.3 0.3 0.3" />
+        <texture type="2d" name="part2_tex" file="2/material_0.png" />
+        <material name="part2_img" texture="part2_tex" />
+
+        <mesh name="part3" file="3/model.obj" scale="0.3 0.3 0.3" />
+        <texture type="2d" name="part3_tex" file="3/material_0.png" />
+        <material name="part3_img" texture="part3_tex" />
+
+        <mesh name="part4" file="4/model.obj" scale="0.3 0.3 0.3" />
+        <texture type="2d" name="part4_tex" file="4/material_0.png" />
+        <material name="part4_img" texture="part4_tex" />
+
+        <mesh name="part5" file="5/model.obj" scale="0.3 0.3 0.3" />
+        <texture type="2d" name="part5_tex" file="5/material_0.png" />
+        <material name="part5_img" texture="part5_tex" />
+
+        <mesh name="part6" file="6/model.obj" scale="0.3 0.3 0.3" />
+        <texture type="2d" name="part6_tex" file="6/material_0.png" />
+        <material name="part6_img" texture="part6_tex" />
+
+        <mesh name="part7" file="7/model.obj" scale="0.3 0.3 0.3" />
+        <texture type="2d" name="part7_tex" file="7/material_0.png" />
+        <material name="part7_img" texture="part7_tex" />
+
+        <mesh name="part8" file="8/model.obj" scale="0.3 0.3 0.3" />
+        <texture type="2d" name="part8_tex" file="8/material_0.png" />
+        <material name="part8_img" texture="part8_tex" />
+
+        <mesh name="part9" file="9/model.obj" scale="0.3 0.3 0.3" />
+        <texture type="2d" name="part9_tex" file="9/material_0.png" />
+        <material name="part9_img" texture="part9_tex" />
+
+        <mesh name="part10" file="10/model.obj" scale="0.3 0.3 0.3" />
+        <texture type="2d" name="part10_tex" file="10/material_0.png" />
+        <material name="part10_img" texture="part10_tex" />
+
+        <mesh name="part11" file="11/model.obj" scale="0.3 0.3 0.3" />
+        <texture type="2d" name="part11_tex" file="11/material_0.png" />
+        <material name="part11_img" texture="part11_tex" />
+
+        <mesh name="part12" file="12/model.obj" scale="0.3 0.3 0.3" />
+        <texture type="2d" name="part12_tex" file="12/material_0.png" />
+        <material name="part12_img" texture="part12_tex" />
+
+        <mesh name="part13" file="13/model.obj" scale="0.3 0.3 0.3" />
+        <texture type="2d" name="part13_tex" file="13/material_0.png" />
+        <material name="part13_img" texture="part13_tex" />
+
+        <mesh name="part14" file="14/model.obj" scale="0.3 0.3 0.3" />
+        <texture type="2d" name="part14_tex" file="14/material_0.png" />
+        <material name="part14_img" texture="part14_tex" />
+        <texture type="skybox" file="./desert.png"
+            gridsize="3 4" gridlayout=".U..LFRB.D.." />
+        <texture name="plane" type="2d" builtin="checker" rgb1=".1 .1 .1" rgb2=".5 .5 .5"
+            width="512" height="512" mark="cross" markrgb=".8 .8 .8" />
+        <material name="plane" reflectance="0.3" texture="plane" texrepeat="1 1" texuniform="true" />
+    </asset>
+
+    <default>
+        <geom solref=".5e-4" solimp="0.9 0.99 1e-4" fluidcoef="0.5 0.25 0.5 2.0 1.0" />
+
+        <default class="part0">
+            <geom type="mesh" mesh="part0"  density="650" fluidshape="ellipsoid" contype="1"
+                conaffinity="1" />
+        </default>
+
+        <default class="part1">
+            <geom type="mesh" mesh="part1"  density="650" fluidshape="ellipsoid" contype="1"
+                conaffinity="1" />
+        </default>
+
+        <default class="part2">
+            <geom type="mesh" mesh="part2"  density="650" fluidshape="ellipsoid" contype="1"
+                conaffinity="1" />
+        </default>
+
+        <default class="part3">
+            <geom type="mesh" mesh="part3"  density="650" fluidshape="ellipsoid" contype="1"
+                conaffinity="1" />
+        </default>
+
+        <default class="part4">
+            <geom type="mesh" mesh="part4"  density="650" fluidshape="ellipsoid" contype="1"
+                conaffinity="1" />
+        </default>
+
+        <default class="part5">
+            <geom type="mesh" mesh="part5"  density="650" fluidshape="ellipsoid" contype="1"
+                conaffinity="1" />
+        </default>
+
+        <default class="part6">
+            <geom type="mesh" mesh="part6"  density="650" fluidshape="ellipsoid" contype="1"
+                conaffinity="1" />
+        </default>
+
+        <default class="part7">
+            <geom type="mesh" mesh="part7"  density="650" fluidshape="ellipsoid" contype="1"
+                conaffinity="1" />
+        </default>
+
+        <default class="part8">
+            <geom type="mesh" mesh="part8"  density="7800" fluidshape="ellipsoid" contype="1"
+                conaffinity="1" />
+        </default>
+
+        <default class="part9">
+            <geom type="mesh" mesh="part9"  density="7500" fluidshape="ellipsoid" contype="1"
+                conaffinity="1" />
+        </default>
+
+        <default class="part10">
+            <geom type="mesh" mesh="part10"  density="7800" fluidshape="ellipsoid" contype="1"
+                conaffinity="1" />
+        </default>
+
+        <default class="part11">
+            <geom type="mesh" mesh="part11"  density="650" fluidshape="ellipsoid" contype="1"
+                conaffinity="1" />
+        </default>
+
+        <default class="part12">
+            <geom type="mesh" mesh="part12"  density="7800" fluidshape="ellipsoid" contype="1"
+                conaffinity="1" />
+        </default>
+
+        <default class="part13">
+            <geom type="mesh" mesh="part13"  density="7800" fluidshape="ellipsoid" contype="1"
+                conaffinity="1" />
+        </default>
+
+        <default class="part14">
+            <geom type="mesh" mesh="part14"  density="7800" fluidshape="ellipsoid" contype="1"
+                conaffinity="1" />
+        </default>
+    </default>
+
+    <worldbody>
+        <geom name="floor" pos="0 0 0" size="0 0 .25" type="plane" material="plane"
+            condim="6" />
+        <light directional="true" ambient=".3 .3 .3" pos="30 30 30" dir="0 -2 -1"
+            diffuse=".5 .5 .5" specular=".5 .5 .5" />
+        <body name='base' pos="0 0 1" euler="0 90 0">
+            <freejoint />
+            <geom class="part0" material="part0_img"/>
+            <geom class="part1" material="part1_img"/>
+            <geom class="part2" material="part2_img"/>
+            <geom class="part3" material="part3_img"/>
+            <geom class="part4" material="part4_img"/>
+            <geom class="part5" material="part5_img"/>
+            <geom class="part6" material="part6_img"/>
+            <geom class="part9" material="part9_img"/>
+            <geom class="part10" material="part10_img"/>
+            <geom class="part13" material="part13_img"/>
+            <geom class="part14" material="part14_img"/>
+
+            <body name='part' pos="0 0 0" euler="0 0 0">
+                <joint type="slide" name="slide0"  axis="0 0 1" range=" 0 0.6" damping="0.001"
+                    frictionloss="0.0" stiffness="0"/>
+
+                <geom class="part11" material="part11_img"/>
+                <geom class="part12" material="part12_img"/>
+             </body>
+
+             <body name='part2' pos="0 0 0" euler="0 0 0">
+                <joint type="slide" name="slide1" axis="0 0 1" range="0 0.6" damping="0.001"
+                    frictionloss="0.0" stiffness="0"/>
+
+                <geom class="part7" material="part7_img"/>
+                <geom class="part8" material="part8_img"/>
+             </body>            
+        </body>
+    </worldbody>
+</mujoco>
+            `;
+            
+                // 插入并高亮内容
+                document.getElementById('jsonDisplay').textContent = JSON.stringify(jsonData, null, 2);
+                document.getElementById('urdfDisplay').textContent = urdfData.trim();
+                document.getElementById('xmlDisplay').textContent = xmlData.trim();
+            
+                // 可选：重新手动高亮（如果后面动态插入内容）
+                hljs.highlightElement(document.getElementById('jsonDisplay'));
+                hljs.highlightElement(document.getElementById('urdfDisplay'));
+                hljs.highlightElement(document.getElementById('xmlDisplay'));
+              </script>
+
+              
+    
+
+
+        <!--/ method. -->
+    <br>
+    <br>
+
+  </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <!-- method. -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-4">PhysXGen: Physical-Grounded 3D Generation Framework </h2>
+            <h2 class="title is-5">I. Architecture of Our Method</h2>
+            <div class="content has-text-justified">
+    
+            <img class="summary-img" src="./static/videos/baseline2.png" style="width:100%;">
+            <br>
+            <p >
+              PhysXGen features a two-stage architecture
+              comprising: a physical 3D VAE framework for latent space learning, and a physics-aware generative
+              process for structured latent.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--/ method. -->
+
+        <section class="section">
+          <div class="container is-max-desktop">
+            <!-- method. -->
+            <div class="columns is-centered has-text-centered">
+              <div class="column is-four-fifths">
+                <h2 class="title is-5">II. Qualitative Comparison</h2>
+                <div class="content has-text-justified">
+        
+                <img class="summary-img" src="./static/videos/experiment2.png" style="width:100%;">
+                <br>
+                <br>
+                <img class="summary-img" src="./static/videos/experiment_gpt.png" style="width:100%;">
+
+                </div>
+              </div>
+            </div>
+            <!--/ method. -->
+
+          </section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-4">BibTeX</h2>
+    <pre><code>@article{cao2025PhysX,
+  title={PhysX: Physical-Grounded 3D Asset Generation},
+  author={Cao, Ziang and Chen, Zhaoxi and Pan, Liang and Liu, Ziwei},
+  journal={arXiv preprint arXiv:},
+  year={2025}
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+
+      <a class="icon-link" href="https://github.com/ziangcao0312/PhysX" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+                 Source code mainly borrowed from Keunhong Park's  <a rel="license"
+                                                href="https://nerfies.github.io/">Nerfies website</a> and <a rel="license"
+                                                href="https://github.com/gkjohnson/urdf-loaders">urdf-loaders</a>.
+          </p>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
