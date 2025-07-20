@@ -1,6 +1,6 @@
 # PhysX project pages
 
-This is the repository that contains source code for the [PhysX website](https://physx-3d.github.io).
+This is the repository that contains source code for the [PhysX-3D website](https://physx-3d.github.io).
 
 
 ###Acknowledgement
